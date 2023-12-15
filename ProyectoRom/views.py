@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.template import Template, Context
 from django.template import loader
 from django.shortcuts import render
-from ProyectoRom.forms import EjemploFormulario
+from ProyectoRom.forms import FormularioLogin, EjemploFormulario
 from ProyectoRom.models import Usuario
 
 
@@ -28,29 +28,20 @@ def emuladores(xx):
     documento = plantilla.render(diccionario)
     
     return HttpResponse(documento)
-def login(xx):
+def login(request):
    
     
-    diccionario = { }
-    
-    
-    plantilla = loader.get_template('Login1.html')
-    
-    documento = plantilla.render(diccionario)
-    
-    return HttpResponse(documento)
-   
-    # if request.method == "POST":
-    #     miForm = FormularioLogin(request.POST)
-    #     print (miForm)
-    #     if miForm.is_valid:
-    #         info = miForm.cleaned_data
-    #         usuario =  Usuario(nombre = info["nombre"], email = info["email"], contra = info["contraseña"])
-    #         usuario.save()
-    #         return render(request, "Plantilla/Home.html")
-    # else:
-    #     miForm = FormularioLogin()
-    #     return render(request,"Plantilla/Login.html", {"miForm":miForm})
+    if request.method == "POST":
+        miForm = FormularioLogin(request.POST)
+        print (miForm)
+        if miForm.is_valid:
+            info = miForm.cleaned_data
+            usuario =  Usuario(nombre = info["nombre"], email = info["email"], contra = info["contraseña"])
+            usuario.save()
+            return render(request, "Plantilla/Home.html")
+    else:
+        miForm = FormularioLogin()
+        return render(request,"Login1.html", {"miForm":miForm})
             
 
 
