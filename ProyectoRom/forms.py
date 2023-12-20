@@ -8,7 +8,7 @@ class EjemploFormulario(forms.Form):
     
 class FormularioLogin(forms.Form):
     
-    usuario = forms.CharField()
-    email = forms.EmailField
+    nombre = forms.CharField()
+    email = forms.EmailField()
     contra =forms.CharField()
     

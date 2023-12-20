@@ -56,8 +56,8 @@ ROOT_URLCONF = 'ProyectoRom.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["C:/Users/Usuario/Documents/.programacion/Prueba git/ProyectoRom/ProyectoTobiasBarbero/ProyectoRom/static/ProyectoRom",
-                 "C:/Users/Usuario/Documents/.programacion/Prueba git/ProyectoRom/ProyectoTobiasBarbero/ProyectoRom/Plantilla"],
+        'DIRS': ["C:/Users/Usuario/Documents/.programacion/Prueba git/ProyectoRom/ProyectoTobiasBarbero/Proyecto-Coder-Final/ProyectoRom/Plantilla",
+                 "C:/Users/Usuario/Documents/.programacion/Prueba git/ProyectoRom/ProyectoTobiasBarbero/ProyectoRom/static/ProyectoRom" ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,0 +1,16 @@
+{%extends "Home.html"%}
+{%load static%}
+{% block ContendidoqueCambia%}
+<p> Estamos buscando el : {{rom_id}}
+</p>
+
+{% if rom  %}
+
+<ul>
+    {% for rom in rom}
+    <li>  {{ rom.nombre}}</li>
+    <li>   {{ rom.id }}</li>
+    {% endfor %}
+</ul>
+{%endif%}
+{% endblock %}

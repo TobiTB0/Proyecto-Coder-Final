@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 class Usuario(models.Model):
     nombre = models.CharField(max_length = 40)
     email = models.EmailField()
@@ -11,6 +13,10 @@ class Roms(models.Model):
     
 class Emuladores(models.Model):
     nombre = models.CharField(max_length = 100)
+    
+    
+
+    
     
 
     

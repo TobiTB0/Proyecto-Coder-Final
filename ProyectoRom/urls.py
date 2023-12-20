@@ -16,13 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ProyectoRom.views import home, roms, emuladores, login, ejemploformulario
+
+from ProyectoRom.views import home, roms, emuladores, login, ejemploformulario, buscarRoms, buscar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('roms/', roms,name='roms'),
     path('emuladores/', emuladores,name='emuladores'),
     path('login/', login,name='login'),
-    path('formulario/', ejemploformulario, name='ejemploformulario'),
+    # path('formulario/', ejemploformulario, name='ejemploformulario'),
+    path("buscarRoms/", buscarRoms, name = 'buscarRoms'),
+    path("buscar/", buscar, name="buscar"),
     path('home/', home, name='home')
 ]

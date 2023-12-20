@@ -1,9 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse 
 from django.template import Template, Context
 from django.template import loader
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ProyectoRom.forms import FormularioLogin, EjemploFormulario
-from ProyectoRom.models import Usuario
+from ProyectoRom.models import Usuario, Roms
 
 
 def roms(xx):
@@ -34,18 +34,32 @@ def login(request):
     if request.method == "POST":
         miForm = FormularioLogin(request.POST)
         print (miForm)
-        if miForm.is_valid:
+        if miForm.is_valid():
             info = miForm.cleaned_data
-            usuario =  Usuario(nombre = info["nombre"], email = info["email"], contra = info["contraseña"])
+            usuario =  Usuario(nombre = info["nombre"], email = info["email"], contra = info["contra"])
             usuario.save()
-            return render(request, "Plantilla/Home.html")
-    else:
+            return redirect( "home")
+    else:   
         miForm = FormularioLogin()
         return render(request,"Login1.html", {"miForm":miForm})
             
 
+def buscarRoms(request):
+    return render(request, "buscarRoms.html")
 
+def buscar(request):
+    rom_id = request.GET.get('rom_id')
 
+    if rom_id:
+        rom = Roms.objects.filter(rom_id__icontains=rom_id)
+        return render(request, "ProyectoRom/Plantilla/resultadosBusqueda.html", {"rom_id": rom_id, "rom": rom})
+    else:
+        respuesta = "No enviaste datos"
+        return HttpResponse(respuesta)
+    
+    
+    
+    
 def home(xx):
     
     
