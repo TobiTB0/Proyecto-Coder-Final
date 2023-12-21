@@ -3,32 +3,28 @@ from django.template import Template, Context
 from django.template import loader
 from django.shortcuts import render, redirect
 from ProyectoRom.forms import FormularioLogin, EjemploFormulario
-from ProyectoRom.models import Usuario, Roms
+from ProyectoRom.models import Usuario, Roms, Emuladores
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
 
-
-def roms(xx):
+def roms(request):
   
     
-    diccionario = {}
+    roms = Roms.objects.all()
+    
+    contexto = {"roms": roms}
     
     
-    plantilla = loader.get_template('Roms.html')
-    
-    documento = plantilla.render(diccionario)
-    
-    return HttpResponse(documento)
-def emuladores(xx):
+    return render(request, "Roms.html", contexto)
+def emuladores(request):
    
+    emuladores = Emuladores.objects.all()
     
-    diccionario = {}
+    contexto = {"emuladores": emuladores}
     
     
-    plantilla = loader.get_template('Emuladores.html')
-    
-    documento = plantilla.render(diccionario)
-    
-    return HttpResponse(documento)
-def login(request):
+    return render(request, "Emuladores.html", contexto)
+def signup(request):
    
     
     if request.method == "POST":
@@ -42,6 +38,23 @@ def login(request):
     else:   
         miForm = FormularioLogin()
         return render(request,"Login1.html", {"miForm":miForm})
+def login(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data = request.POST)
+        if form.is_valid():
+            usuario = form.cleaned_data.get('username')
+            contra = form.cleaned_data.get('password')
+            user = authenticate(username=usuario, password=contra)
+            if user is not None:
+                login(request, user)
+                return render(request,'Home.html', {"mensaje":f"Bienvenido{usuario}"})
+            else:
+                return render(request, "Home.html", {"mensaje":f"Error, datos incorrectos"})
+        else:
+            return render(request, "Home.html", {"mensaje":f"Error, formulario incorrecto"})
+    form = AuthenticationForm()
+    return render(request, "Login2.html", {"form": form})
+        
             
 
 def buscarRoms(request):
